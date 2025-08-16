@@ -1,19 +1,17 @@
 import flights_pb2 as PB, base64
 
-SAT = PB.Airport(airport="SAT")
-TYO = PB.Airport(airport="TYO")
-
-flight1 = PB.FlightData(
-    date="2025-09-29",
-    from_flight=SAT,
-    to_flight=TYO
-)
-flight2 = PB.FlightData(
-    date="2025-10-23",
-    from_flight=TYO,
-    to_flight=SAT
-)
-allFlights = [flight1, flight2]
+trip = [
+    ["2025-08-23", "SAT", "BOS"]
+    # ["2025-10-23", "BOS", "SAT"]
+]
+allFlights = []
+for leg in trip:
+    flight = PB.FlightData(
+        date = leg[0],
+        from_flight= PB.Airport(airport=leg[1]),
+        to_flight = PB.Airport(airport=leg[2])
+    )
+    allFlights.append(flight)
 info = PB.Info()
 for flight in allFlights:
     info.data.append(flight)
